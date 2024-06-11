@@ -7,9 +7,34 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { FC } from "react";
+import { JsonRpcSigner, ethers } from "ethers";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 
-const Header: FC = () => {
+interface HeaderProps {
+  signer: JsonRpcSigner | null;
+  setSigner: Dispatch<SetStateAction<JsonRpcSigner | null>>;
+}
+
+const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
+  const onClickMetamask = async () => {
+    try {
+      if (!window.ethereum) return;
+
+      const provider = new ethers.BrowserProvider(window.ethereum);
+
+      setSigner(await provider.getSigner());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onClickLogOut = () => {
+    setSigner(null);
+  };
+
+  useEffect(() => console.log(signer), [signer]);
+  const navigate = useNavigate();
+
   return (
     <Flex
       h={20}
@@ -27,6 +52,7 @@ const Header: FC = () => {
             colorScheme="blue"
             fontWeight={"bold"}
             textColor={"green.700"}
+            onClick={() => navigate("/")}
           >
             Home
           </Button>
@@ -35,6 +61,7 @@ const Header: FC = () => {
             colorScheme="blue"
             fontWeight={"bold"}
             textColor={"green.700"}
+            onClick={() => navigate("/mint")}
           >
             Mint
           </Button>
@@ -43,13 +70,22 @@ const Header: FC = () => {
             colorScheme="blue"
             fontWeight={"bold"}
             textColor={"green.700"}
+            onClick={() => navigate("/market")}
           >
             Market
           </Button>
         </Flex>
       </Flex>
-      <Flex display={["none", "none", "flex"]}>
-        <Button justifyContent="end">로그인</Button>
+      <Flex display={["none", "none", "flex"]} justifyContent={"end"}>
+        {signer ? (
+          <Button colorScheme="blue">
+            {signer.address.substring(0, 7)}...
+          </Button>
+        ) : (
+          <Button colorScheme="blue" onClick={onClickMetamask}>
+            🦊 로그인
+          </Button>
+        )}
       </Flex>
       <Flex display={["flex", "flex", "none"]}>
         <Menu colorScheme="blue">
@@ -58,14 +94,16 @@ const Header: FC = () => {
             as={Button}
             rightIcon={<ChevronDownIcon />}
           >
-            Actions
+            {signer ? `${signer.address.substring(0, 7)}...` : "메뉴"}
           </MenuButton>
           <MenuList>
-            <MenuItem>로그인</MenuItem>
+            {!signer && (
+              <MenuItem onClick={onClickMetamask}>🦊 로그인</MenuItem>
+            )}
             <MenuItem>HOME</MenuItem>
             <MenuItem>MINT</MenuItem>
             <MenuItem>MARKET</MenuItem>
-            <MenuItem>로그아웃</MenuItem>
+            {signer && <MenuItem onClick={onClickLogOut}>🦊 로그아웃</MenuItem>}
           </MenuList>
         </Menu>
       </Flex>

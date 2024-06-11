@@ -1,9 +1,11 @@
 import { Flex } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
+import { JsonRpcSigner } from "ethers";
 
 const Layout: FC = () => {
+  const [signer, setSigner] = useState<JsonRpcSigner | null>(null);
   return (
     <Flex
       bgGradient={"linear(to-t, blue, blue.300)"}
@@ -18,7 +20,7 @@ const Layout: FC = () => {
       flexDir={"column"}
       letterSpacing={4}
     >
-      <Header />
+      <Header signer={signer} setSigner={setSigner} />
       <Flex
         bgColor={"green.100"}
         flexGrow={1}

@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { JsonRpcSigner, ethers } from "ethers";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   signer: JsonRpcSigner | null;
@@ -32,7 +33,7 @@ const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
     setSigner(null);
   };
 
-  useEffect(() => console.log(signer), [signer]);
+  // useEffect(() => console.log(signer), [signer]);
   const navigate = useNavigate();
 
   return (

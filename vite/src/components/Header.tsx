@@ -8,7 +8,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { JsonRpcSigner, ethers } from "ethers";
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
@@ -64,7 +64,7 @@ const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
             textColor={"green.700"}
             onClick={() => navigate("/mint")}
           >
-            Mint
+            구하러가기
           </Button>
           <Button
             variant={"link"}

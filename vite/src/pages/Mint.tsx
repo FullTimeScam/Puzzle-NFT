@@ -10,7 +10,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { OutletContext } from "../components/Layout";
 // import { ethers } from "ethers";

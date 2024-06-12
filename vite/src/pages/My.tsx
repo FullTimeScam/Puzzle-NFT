@@ -27,7 +27,7 @@ const My: FC = () => {
     getCheckNfts();
   }, [signer, mintContract]);
 
-  useEffect(() => console.log(mintedList), [mintedList]);
+  // useEffect(() => console.log(mintedList), [mintedList]);
 
   return (
     <Flex flexDir="column" w="100%" my={[10, 10, 20]}>

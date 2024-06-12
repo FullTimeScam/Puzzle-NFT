@@ -1,4 +1,4 @@
-import { Box, Flex, GridItem, Image, Text } from "@chakra-ui/react";
+import { Box, GridItem, Image, Text } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { OutletContext } from "./Layout";
@@ -35,7 +35,7 @@ const NftCard: FC<NftCardProps> = ({ tokenId, amount }) => {
     getNftMetadata();
   }, [mintContract, tokenId]);
 
-  useEffect(() => console.log(stsNftMetadata), [stsNftMetadata]);
+  //   useEffect(() => console.log(stsNftMetadata), [stsNftMetadata]);
   return (
     <GridItem display={"felx"} flexDir={"column"}>
       <Box pos="relative" w="fit-content">

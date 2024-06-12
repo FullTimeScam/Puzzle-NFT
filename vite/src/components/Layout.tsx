@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { Dispatch, FC, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import { JsonRpcSigner } from "ethers";
@@ -23,7 +23,7 @@ const Layout: FC = () => {
     setMintContract(new Contract(mintContractAddress, mintContractAbi, signer));
   }, [signer]);
 
-  useEffect(() => console.log(mintContract), [mintContract]);
+  // useEffect(() => console.log(mintContract), [mintContract]);
 
   return (
     <Flex

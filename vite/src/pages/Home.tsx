@@ -13,7 +13,7 @@ import { OutletContext } from "../components/Layout";
 import PuzzleCard from "../components/PuzzleCard";
 
 const Home: FC = () => {
-  const [mintedList, setMintedList] = useState<boolean[]>([]);
+  const [mintedList, setMintedList] = useState<number[]>([]);
   const { signer, mintContract } = useOutletContext<OutletContext>();
   const [progress, setProgress] = useState<number>(0);
   const navigate = useNavigate();
@@ -22,10 +22,12 @@ const Home: FC = () => {
     try {
       if (!signer || !mintContract) return;
 
-      const response = await mintContract.checkNfts(signer.address);
+      const response = await mintContract.balanceOfNfts(signer.address);
       // console.log(response);
 
-      const temp = response.map((v: boolean) => v);
+      const temp = response.map((v: bigint) => Number(v));
+      // console.log(temp);
+
       setMintedList(temp);
     } catch (error) {
       console.error(error);
@@ -90,7 +92,7 @@ const Home: FC = () => {
             <Grid templateColumns={"repeat(4, 1fr)"}>
               {/* 그리드 칸 나누기 */}
               {mintedList.map((v, i) => (
-                <PuzzleCard key={i} index={i} isMinted={v} />
+                <PuzzleCard key={i} index={i} balance={v} />
               ))}
             </Grid>
           </>

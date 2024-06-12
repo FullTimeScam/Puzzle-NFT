@@ -4,10 +4,10 @@ import { FC, useEffect, useState } from "react";
 
 interface PuzzleCardProps {
   index: number;
-  isMinted: boolean;
+  balance: number;
 }
 
-const PuzzleCard: FC<PuzzleCardProps> = ({ index, isMinted }) => {
+const PuzzleCard: FC<PuzzleCardProps> = ({ index, balance }) => {
   const [nftMetadata, setMetadata] = useState<NftMetadata>();
 
   const getNftMetadata = async () => {
@@ -30,7 +30,7 @@ const PuzzleCard: FC<PuzzleCardProps> = ({ index, isMinted }) => {
 
   return (
     <GridItem pos="relative" w={[20, 20, 40]} h={[20, 20, 40]}>
-      {!isMinted && (
+      {!balance && (
         <Box
           pos="absolute"
           top={0}
